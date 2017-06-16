@@ -3,6 +3,24 @@ import os
 import random
 import movement
 
+
+def check_row(board):
+	for row in board:
+		size = len(row)
+		for j in range(0,size-1):
+			if row[j] == row[j+1]:
+				return True
+	return False
+
+def check_col(board):
+	size = len(board[0])
+	for j in range(0,size-1):
+		col = board[:,j]
+		for k in range(0,size-1):
+			if col[k] == col[k+1]:
+				return True
+	return False
+
 def init_board(size):
 	board = numpy.zeros((size+1,size+1))
 	return board
@@ -97,7 +115,22 @@ def board_update(board):
 
 
 def check_if_game_over(board):
-	pass
+	empty_list = []
+	size = len(board[0])
+	for j in range(size):
+		for i in range(size):
+			if board[j][i] == 0:
+				empty_list.append((j,i))
+	length = len(empty_list)
+	if length != 0:
+		pass
+	elif length == 0:
+		if check_row(board) or check_col(board):
+			pass
+		else:
+			print board
+			print "Game Over !!!!!!!!!!!!!!"
+			quit()
 
 
 def main():
