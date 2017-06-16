@@ -1,86 +1,75 @@
 import numpy
 
+def shift_zeros_left(arr):
+	# print arr
+	# print sorted(arr,key=bool)
+	return sorted(arr,key=bool)
 
-def update_left(arr,j):
-	a = numpy.zeros((len(arr),0))
-	a[:j] = arr[:j]
-	a[j+1:len(arr)-(j+2)] = arr[j+2:]
-	return a
-
-def update_right(arr,j):
-	a = arr[::-1]
-	j =update_left(a,j)
-	return j[::-1]
-
-def left_row(row):
-	size = len(row)
-	for j in range(size-1):
-		if row[j]== row[j+1]:
-			row[j] = row[j]*2
-			a = update_right(row,j)
-			return a
-	return row
-
-def right_row(row):
-	size = len(row)
-	row = row[::-1]
-	for j in range(size-1):
-		if row[j]== row[j+1]:
-			row[j] = row[j]*2
-			a = update_right(row,j)
-			return a[::-1]
-	return row[::-1]
+def shift_zeros_right(arr):
+	arr = shift_zeros_left(arr)
+	return arr[::-1]
 
 
-def up_col(col):
-	size = len(col)
-	for j in range(size-1):
-		if col[j]== col[j+1]:
-			col[j] = col[j]*2
-			a = update_right(col,j)
-			return a
-	return col
+def combine_left(arr):
+	size = len(arr)
+	for l in range(1,size-1):
+		if arr[l] == arr[l+1]:
+			arr[l] = arr[l]*2
+			arr[l+1] = 0
+	return arr
 
 
-def down_col(col):
-	size = len(col)
-	col = col[::-1]
-	for j in range(size-1):
-		if col[j]== col[j+1]:
-			col[j] = col[j]*2
-			a = update_right(col,j)
-			return a
-	return col[::-1]
+def combine_right(arr):
+	arr = arr[::-1]
+	arr = combine_left(arr)
+	return arr[::-1]
 
 
 
-
-def shift_left(board):
-	temp = board
-	size = len(board)
-	for row in board:
-		left_row(row)
-	return board
-
-def shift_right(board):
-	temp = board
-	size = len(board)
-	for row in board:
-		right_row(row)
-	return board
-
-def shift_up(board):
-	temp = board
+def board_right(board):
 	size = len(board)
 	for j in range(size):
-		col = board[:][j]
-		up_col(col)
+		col = board[j]
+		# print col
+		col =shift_zeros_left(col)
+		col =combine_right(col)
+		col =shift_zeros_left(col)
+		board[j] = col
+	# print board
 	return board
 
-def shift_down(board):
-	temp = board
+def board_left(board):
 	size = len(board)
 	for j in range(size):
-		col = board[:][j]
-		down_col(col)
+		col = board[j]
+		# print col
+		col =shift_zeros_right(col)
+		# print col
+		col =combine_left(col)
+		col =shift_zeros_right(col)
+		board[j] = col
+	return board
+
+def board_up(board):
+	size = len(board)
+	for j in range(size):
+		col = board[:,j]
+		# print col
+		col =shift_zeros_right(col)
+		# print col
+		col =combine_left(col)
+		col =shift_zeros_right(col)
+		board[:,j] = col
+	return board
+
+def board_down(board):
+	size = len(board)
+	for j in range(size):
+		col = board[:,j]
+		# print col
+		col =shift_zeros_left(col)
+		col =combine_right(col)
+		col =shift_zeros_left(col)
+		board[:,j] = col
+	# print board
 	return board
