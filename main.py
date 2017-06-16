@@ -128,6 +128,7 @@ def check_if_game_over(board):
 		if check_row(board) or check_col(board):
 			pass
 		else:
+			os.system("clear")
 			print board
 			print "Game Over !!!!!!!!!!!!!!"
 			quit()
