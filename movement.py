@@ -12,7 +12,7 @@ def shift_zeros_right(arr):
 
 def combine_left(arr):
 	size = len(arr)
-	for l in range(1,size-1):
+	for l in range(0,size-1):
 		if arr[l] == arr[l+1]:
 			arr[l] = arr[l]*2
 			arr[l+1] = 0
