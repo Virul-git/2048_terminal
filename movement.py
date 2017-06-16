@@ -1,8 +1,9 @@
 import numpy
 
 def shift_zeros_left(arr):
-	sorted(arr,key=bool)
-	return arr
+	# print arr
+	# print sorted(arr,key=bool)
+	return sorted(arr,key=bool)
 
 def shift_zeros_right(arr):
 	arr = shift_zeros_left(arr)
@@ -26,33 +27,49 @@ def combine_right(arr):
 
 
 def board_right(board):
-	for row in board:
-		shift_zeros_left(row)
-		combine_right(row)
-		shift_zeros_left(row)
+	size = len(board)
+	for j in range(size):
+		col = board[j]
+		# print col
+		col =shift_zeros_left(col)
+		col =combine_right(col)
+		col =shift_zeros_left(col)
+		board[j] = col
+	# print board
 	return board
 
 def board_left(board):
-	for row in board:
-		shift_zeros_right(row)
-		combine_left(row)
-		shift_zeros_right(row)
+	size = len(board)
+	for j in range(size):
+		col = board[j]
+		# print col
+		col =shift_zeros_right(col)
+		# print col
+		col =combine_left(col)
+		col =shift_zeros_right(col)
+		board[j] = col
 	return board
 
 def board_up(board):
 	size = len(board)
 	for j in range(size):
-		col = board[:][j]
-		shift_zeros_right(col)
-		combine_left(col)
-		shift_zeros_right(col)
+		col = board[:,j]
+		# print col
+		col =shift_zeros_right(col)
+		# print col
+		col =combine_left(col)
+		col =shift_zeros_right(col)
+		board[:,j] = col
 	return board
 
 def board_down(board):
 	size = len(board)
 	for j in range(size):
-		col = board[:][j]
-		shift_zeros_left(col)
-		combine_right(col)
-		shift_zeros_left(col)
+		col = board[:,j]
+		# print col
+		col =shift_zeros_left(col)
+		col =combine_right(col)
+		col =shift_zeros_left(col)
+		board[:,j] = col
+	# print board
 	return board
