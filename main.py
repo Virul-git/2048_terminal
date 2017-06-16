@@ -67,13 +67,15 @@ def spawn_num(board,size):
 
 def Movement(board,a):
 	if a == 'w' or a == 'W':
-		movement.shift_up(board)
+		movement.board_up(board)
 	elif a == 'S' or a == 's':
-		movement.shift_down(board)
+		movement.board_down(board)
 	elif a == 'a' or a == 'A':
-		movement.shift_left(board)
+		movement.board_left(board)
+	elif a == 'd' or a == 'D':
+		movement.board_right(board)
 	else:
-		movement.shift_right(board)
+		quit()
 
 
 
@@ -82,7 +84,7 @@ def board_update(board):
 		try:
 			os.system("clear")
 			print board
-			valids = ['w','s','a','d','W','S','D','A']
+			valids = ['w','s','a','d','W','S','D','A','q','Q']
 			a = raw_input(" Enter w (or) a (or) s (or) d:--> ")
 			if a in valids:
 				break
